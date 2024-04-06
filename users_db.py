@@ -33,19 +33,20 @@ class UsersDB:
         face_repr = pred[0]["embedding"]
         new_row = pd.DataFrame({"id": [id_], "face_repr": [face_repr]})
         self.data = pd.concat([self.data, new_row], ignore_index=True)
-        # print(f"Pomyślnie dodano nową osobe {id_=} :) ")
+        print(f"Pomyślnie dodano nową osobe {id_=} :) ")
+        return True
 
-    def verify_user(self, img_path, identity, threshold, cache=False):
+    def verify_user(self, img_path, identity, threshold = 0.3, cache=False):
+        if identity not in self.data["id"].astype('str').values:
+                print(f"Nie ma takiej osoby w bazie danych {identity=}")
+                return None, False
         if cache:
             img_fname = Path(img_path).name
             input_face_repr = self.cached_embeddings[self.model][img_fname]
         else:
             input_face_repr = self.get_img_embedding(img_path)
-            if identity not in self.data["id"].values:
-                print(f"Nie ma takiej osoby w bazie danych {identity=}")
-                return None, False
-
-        target_identity_face_repr = self.data[self.data["id"] == identity][
+            
+        target_identity_face_repr = self.data[self.data["id"].astype('str') == identity][
             "face_repr"
         ].item()
         cos_dist = self.CosDist(input_face_repr, target_identity_face_repr)
@@ -58,7 +59,7 @@ class UsersDB:
         )[0]["embedding"]
 
     def save_db(self, path):
-        self.data.to_csv(path, index=False)
+        self.data.to_pickle(path)
 
     def load_db(self, path):
-        self.data = pd.read_csv(path)
+        self.data = pd.read_pickle(path)
