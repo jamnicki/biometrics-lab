@@ -11,3 +11,5 @@ tqdm
 loguru
 matplotlib
 seaborn
+
+brisque
