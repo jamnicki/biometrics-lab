@@ -33,7 +33,7 @@ def authenticate(db, login):
 
 # Strona główna aplikacji
 def main():
-    db = UsersDB(model="VGG-Face")
+    db = UsersDB(model=MODEL)
     db.load_db(USER_DB_PATH)
     st.title("Aplikacja do autoryzacji za pomocą zdjęć twarzy")
 

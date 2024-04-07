@@ -23,11 +23,14 @@ class UsersDB:
 
     def add_record(self, id_, img_path):
         # Dodawanie nowego rekordu do DataFrame
+        if id_ in self.data['id'].values:
+            print("Osoba już znajduje się w bazie danych!")
+            return False
         pred = DeepFace.represent(
             img_path=img_path, model_name=self.model, enforce_detection=False
         )
         if pred is None:
-            print("Face not detected!")
+            print("Twarz nie wykryta!")
             return False
 
         face_repr = pred[0]["embedding"]
@@ -45,7 +48,6 @@ class UsersDB:
             input_face_repr = self.cached_embeddings[self.model][img_fname]
         else:
             input_face_repr = self.get_img_embedding(img_path)
-            
         target_identity_face_repr = self.data[self.data["id"].astype('str') == identity][
             "face_repr"
         ].item()
