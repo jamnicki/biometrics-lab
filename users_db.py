@@ -23,7 +23,7 @@ class UsersDB:
 
     def add_record(self, id_, img_path):
         # Dodawanie nowego rekordu do DataFrame
-        if id_ in self.data['id'].values:
+        if id_ in self.data['id'].astype('str').values:
             print("Osoba już znajduje się w bazie danych!")
             return False
         pred = DeepFace.represent(

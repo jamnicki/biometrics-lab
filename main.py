@@ -27,11 +27,11 @@ def authenticate(db, login):
     result = db.verify_user("tmp/uploaded_auth_image.jpg", login)
     if result[1]:
         print(f"Similarity {result[0]}")
-        st.success(f"Witaj {login}!")
+        st.success(f"Witaj {login}!  Cos_dist = {result[0]:.4}")
         return db
     else:
         print(f"Similarity {result[0]}")
-        st.error(f"Błąd autoryzacji dla użytkownika {login}!")
+        st.error(f"Błąd autoryzacji dla użytkownika {login}! Cos_dist = {result[0]:.4}")
         return db
     
 
