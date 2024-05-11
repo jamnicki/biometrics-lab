@@ -1,3 +1,12 @@
-df*/
-*.7z
-dataset/*
+**/*.7z
+
+face/df*_*/
+face/df*.csv
+face/exp_img_embeddings.json
+face/fake_identities.csv
+face/identity_align_CelebA.txt
+face/identity_CelebA.txt
+face/new_users.csv
+face/registration.csv
+
+speech/concat_audio/
