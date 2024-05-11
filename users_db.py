@@ -40,15 +40,14 @@ class UsersDB:
         return True
 
     def verify_user(self, img_path, identity, threshold = 0.3, cache=False):
-        if identity not in self.data["id"].astype('str').values:
+        if str(identity) not in self.data["id"].astype('str').values:
                 print(f"Nie ma takiej osoby w bazie danych {identity=}")
                 return None, False
         if cache:
-            img_fname = Path(img_path).name
-            input_face_repr = self.cached_embeddings[self.model][img_fname]
+            input_face_repr = self.cached_embeddings[self.model][str(img_path)]
         else:
             input_face_repr = self.get_img_embedding(img_path)
-        target_identity_face_repr = self.data[self.data["id"].astype('str') == identity][
+        target_identity_face_repr = self.data[self.data["id"].astype('str') == str(identity)][
             "face_repr"
         ].item()
         cos_dist = self.CosDist(input_face_repr, target_identity_face_repr)
