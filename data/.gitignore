@@ -9,4 +9,4 @@ face/identity_CelebA.txt
 face/new_users.csv
 face/registration.csv
 
-speech/concat_audio/
+speech/concat_audio*
