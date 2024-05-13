@@ -13,3 +13,5 @@ matplotlib
 seaborn
 
 brisque
+
+streamlit
