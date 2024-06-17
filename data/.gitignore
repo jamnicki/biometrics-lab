@@ -10,3 +10,5 @@ face/new_users.csv
 face/registration.csv
 
 speech/concat_audio*
+
+dailytalk/
